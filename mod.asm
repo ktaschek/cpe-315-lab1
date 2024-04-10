@@ -1,4 +1,6 @@
-# MOD
+# Name: Darren Hong/Kyle Taschek
+# Section:  1
+# Description: This program takes in a number and a dvisor (that is a power of 2) and returns the remainder
 
 # Java Implementation
 

@@ -1,4 +1,6 @@
-# REVERSE
+# Name: Darren Hong/Kyle Taschek
+# Section:  1
+# Description:  This program takes an input number and reverse the bits
 
 # Java Implementation
 

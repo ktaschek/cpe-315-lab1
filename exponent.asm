@@ -72,16 +72,16 @@ main:
 	add     $s1, $v0, $s1	# s1 = y
 
 	add   	$s3, $s0, $0
-    addi    $t2, $0, 1		# t2 = out_count
+	addi    $t2, $0, 1		# t2 = out_count
 	beq		$s1, $t2, end
 
 loop:
 	add 	$t0, $s0, $0
-    addi    $t1, $0, 1		# t1 = in_count
+	addi    $t1, $0, 1		# t1 = in_count
 
 multiply:
     beq 	$t1, $s3, update
-    add     $t0, $t0, $s0   
+    add		$t0, $t0, $s0   
 	addi 	$t1, $t1, 1
     j multiply
 

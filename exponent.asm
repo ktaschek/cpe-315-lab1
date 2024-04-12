@@ -1,9 +1,27 @@
 # Name: Darren Hong/Kyle Taschek
 # Section: 1
-# Description: Write a function which does exponentiation: x raised to the power of y. Your function should not use multiplies, but may use repeated addition. Both x and y will be positive.
+# Description: Function which does exponentiation: x^y. Uses repeated addition instead of multiplication. Both x and y will be positive.
 
 
+#public static int exponentiate(int x, int y) {
+#		if (y == 0) {
+#			return 1;
+#		}
+#		if (y == 1) {
+#			return x;
+#		}
 #
+#		int result = x;
+#		for (int i = 1; i < y; i++) {
+#			int sum = 0;
+#			for (int j = 0; j < x; j++) {
+#				sum += result;
+#			}
+#			result = sum;
+#		}
+#
+#		return result;
+#	}
 
 
 .globl prompt_x
@@ -26,54 +44,54 @@ result:
 .text
 
 main:
-	#prompt_x
+	# prompt_x
 	ori     $v0, $0, 4	
 	lui     $a0, 0x1001
 	syscall
 
-	#read input 
+	# read input 
 	ori     $v0, $0, 5
 	syscall
 
-	#clear reg/store x
+	# clear reg/store x
 	ori     $s0, $0, 0
-	add    $s0, $v0, $s0 #s0 = x
+	add    $s0, $v0, $s0	# s0 = x
 
-	#prompt_y
+	# prompt_y
 	ori     $v0, $0, 4	
 	lui     $a0, 0x1001
 	ori     $a0, $a0, 0xA
 	syscall
 
-	#read input
+	# read input
 	ori     $v0, $0, 5
 	syscall
 
-	#clear reg/store y
+	# clear reg/store y
 	ori     $s1, $0, 0
-	add     $s1, $v0, $s1 #s1 = y
+	add     $s1, $v0, $s1	# s1 = y
 
-    add     $s2, $s2, $0 #i
-    addi    $s3, $s3, 1 #result
-    add     $a0, $s0, $0
-    addi    $s4, $0, 1
+	add   	$s3, $s0, $0
+    addi    $t2, $0, 1		# t2 = out_count
+	beq		$s1, $t2, end
 
 loop:
-    #if i=y, print
-	beq		$s1, $s2, print
-    beq     $s1, $s4, if
-    add     $s3, $a0, $0
+	add 	$t0, $s0, $0
+    addi    $t1, $0, 1		# t1 = in_count
 
 multiply:
-    add $a0, $a0, $a0
-    addi $s2, $s2, 1
-    j loop
+    beq 	$t1, $s3, update
+    add     $t0, $t0, $s0   
+	addi 	$t1, $t1, 1
+    j multiply
 
-if:
-    add $s3, $s0, $0
+update:
+	add 	$s3, $t0, $0	# updates result
+	addi 	$t2, $t2, 1
+	bne 	$t2, $s1, loop
 
-print:
-	#result_text
+end:
+	# result_text
 	ori     $v0, $0, 4	
 	lui     $a0, 0x1001
 	ori     $a0, $a0, 0x15

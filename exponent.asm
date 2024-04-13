@@ -71,6 +71,12 @@ main:
 	ori     $s1, $0, 0
 	add     $s1, $v0, $s1	# s1 = y
 
+	# y = 0 case
+	add		$t2, $0, $0
+	add 	$s3, $0, 1
+	beq		$s1, $t2, end
+
+	# y = 1 case
 	add   	$s3, $s0, $0
 	addi    $t2, $0, 1		# t2 = out_count
 	beq		$s1, $t2, end

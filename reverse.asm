@@ -8,18 +8,16 @@
 # System.out.println("Enter a number to reverse: ");
 # int num = sc.nextInt();
 # sc.close();
-# // res stores the result
+
 # int res = 0;
-# // mask is used to check each bit of the input number
 # int mask = 1;
-# // setter is used to set the bit in the result
 # int setter = 1 << 31;
+
 # for (int i = 0; i < 32; i++) {
-#     // if the bit is 1, set the corresponding bit in the result
 #     if ((num & mask) != 0) {
 #         res = res | setter;
 #     }
-#     // shift the mask and setter to the next bit
+
 #     setter = setter >>> 1;
 #     mask = mask << 1;
 # }
@@ -31,6 +29,7 @@
 
 .data
 prompt: .asciiz "Enter a number to reverse: "
+resText: .asciiz "Result: "
 
 .text
 
@@ -44,7 +43,7 @@ prompt: .asciiz "Enter a number to reverse: "
 main:
     # load and print the prompt
     ori $v0, $0, 4
-    la $a0, prompt
+    lui $a0, 0x1001
     syscall
 
     # read the input number
@@ -84,7 +83,12 @@ skip:
     addi $s4, $s4, 1
     j loop
 end:
-    # print the result
+    # print the result  
+    ori $v0, $0, 4
+    lui $a0, 0x1001
+    ori $a0, $a0, 0x1C
+    syscall
+
     ori $v0, $0, 1
     add $a0, $s1, $0
     syscall

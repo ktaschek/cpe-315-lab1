@@ -18,10 +18,12 @@
 
 .globl numPrompt
 .globl divPrompt
+.globl resText
 
 .data
 numPrompt: .asciiz "Enter a number (num): "
 divPrompt: .asciiz "Enter a number (div that's a power of 2): "
+resText: .asciiz "Result: "
 
 .text
 # s0 is the input number
@@ -54,6 +56,12 @@ main:
     and $s3, $s0, $s1
 
     # Print result
+    ori $v0, $0, 4
+    lui $a0, 0x1001
+    ori $a0, $a0, 0x17
+    addi $a0, $a0, 0x2B
+    syscall
+
     ori $v0, $0, 1
     add $a0, $s3, $0
     syscall
